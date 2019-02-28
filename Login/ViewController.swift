@@ -19,9 +19,28 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-// test comment
-    // test comment 2
-    //test comment 3
-
+    
+    @IBOutlet weak var usernameTextField: UITextField!
+    @IBOutlet weak var forgotUserNameButton: UIButton!
+    @IBOutlet weak var forgotPasswordButton: UIButton!
+    
+    @IBAction func forgotUserNameButtonTapped(_ sender: Any) {
+        performSegue(withIdentifier: "ForgotUserNameOrPassword", sender: forgotUserNameButton)
+    }
+    @IBAction func forgotPasswordButtonTapped(_ sender: Any) {
+        performSegue(withIdentifier: "ForgotUserNameOrPassword", sender: forgotPasswordButton)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let sender = sender as? UIButton else {return}
+        
+        if sender == forgotPasswordButton {
+            segue.destination.navigationItem.title = "Forgot Password"
+        } else if sender == forgotUserNameButton {
+            segue.destination.navigationItem.title = "Forgot User Name"
+        } else {
+            segue.destination.navigationItem.title = usernameTextField.text
+        }
+    }
 }
 
